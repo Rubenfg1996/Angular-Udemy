@@ -70,9 +70,34 @@ export class HeroesService {
   getHeroes(): Heroe[] {
     return this.heroes;
   }
+
+  getHeroe(idx: number) {
+    return this.heroes[idx];
+  }
+
+  buscarHeroes(text: string) {
+    const heroes: Heroe[] = [];
+
+    text = text.toLowerCase();
+
+    // tslint:disable-next-line:prefer-const
+    for (let i = 0; i < this.heroes.length; i++) {
+      // tslint:disable-next-line:prefer-const
+      let heroe = this.heroes[i];
+      const nombre = heroe.nombre.toLowerCase();
+
+      if ( nombre.indexOf( text) >= 0) {
+        heroe.idx = i;
+        heroes.push(heroe);
+      }
+    }
+
+    return heroes;
+  }
 }
 
 export interface Heroe {
+  idx?: number;
   nombre: string;
   bio: string;
   img: string;
